@@ -2,7 +2,7 @@ import random
 
 prev_guess = []
 while True:
-  input = raw_input("Number of gladiatros: ")
+  input = raw_input("Number of gladiators: ")
   input2 = raw_input("Number of weapons: ")
   input3 = raw_input("Numebr of guesses: ")
   if int(input) > 0 and int(input2) > 0 and int(input3) > 0:
@@ -20,7 +20,7 @@ for count in range(weapons):
 
 def rand_assign():
   global weapons
-  for preson in range(gladiators):
+  for preson in range(gladiators - len(guess)):
     while True:
       randnumb = random.choice(weapon_numb)
       if randnumb not in guess:
@@ -37,13 +37,11 @@ def conjecture(number):
   if number == 0:
     rand_assign()
   else: 
-    if prev_guess[-1][-2] == 0 or prev_guess[-1][-2] < weapons / 2:
-      if prev_guess[-1][-2] == 0:
-        eliminate_numb()
+    if prev_guess[-1][-2] == 0:
+      eliminate_numb()
       rand_assign()
-    elif prev_guess[-1][-2] >= weapons / 2:
-      if prev_guess[-1][-2] == weapons:
-        eliminate_numb()
+    else:
+      rand_assign()
 
 def main():
   global guess
@@ -61,6 +59,12 @@ def main():
       break
     prev_guess.append([guess, int(input), int(input2)])
     guess = []
+    help = raw_input("Help? ")
+    array = help.split(" ")
+    print array
+    for number in array:
+      guess.append(int(number))
+    print guess
 
   print "You lost!"
 
